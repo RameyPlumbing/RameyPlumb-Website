@@ -1,0 +1,59 @@
+---
+// Renders the phone number via JS at runtime so it's not in static HTML.
+// Defeats the laziest scrapers (the majority).
+// Pair with Cloudflare Scrape Shield > Email Address Obfuscation for additional protection.
+interface Props {
+  /** Apply 'btn-primary', 'btn-secondary', or 'btn-secondary-dark' styling. */
+  variant?: "primary" | "secondary" | "secondary-dark";
+  /** Override the visible text shown before JS hydrates. */
+  pendingLabel?: string;
+  /** Show "Call" prefix in the button when hydrated. */
+  prefix?: string;
+  /** Extra class names to apply. */
+  class?: string;
+}
+
+const {
+  variant = "secondary",
+  pendingLabel = "Call us",
+  prefix = "Call",
+  class: className = "",
+} = Astro.props;
+
+const btnClass =
+  variant === "primary"
+    ? "btn-primary"
+    : variant === "secondary-dark"
+      ? "btn-secondary-dark"
+      : "btn-secondary";
+
+// Phone digits encoded as two halves to avoid the literal number appearing in HTML.
+// JS reassembles at runtime. This is light obfuscation, not real security.
+const part1 = "NjYy"; // "662" base64
+const part2 = "NzkwMzM4Ng=="; // "7903386" base64
+---
+
+<a
+  href="#"
+  class:list={[btnClass, "phone-link", className]}
+  data-p1={part1}
+  data-p2={part2}
+  data-prefix={prefix}
+  rel="nofollow"
+>{pendingLabel}</a>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>(".phone-link").forEach(el => {
+    const p1 = atob(el.dataset.p1 || "");
+    const p2 = atob(el.dataset.p2 || "");
+    // Use the raw attribute so an explicit empty string ("just the number")
+    // is distinct from the attribute not being set ("default to Call").
+    const rawPrefix = el.getAttribute("data-prefix");
+    const prefix = rawPrefix === null ? "Call" : rawPrefix;
+    const digits = p1 + p2;
+    const display = `(${p1}) ${p2.slice(0, 3)}-${p2.slice(3)}`;
+    el.href = `tel:${digits}`;
+    el.textContent = prefix ? `${prefix} ${display}` : display;
+    el.setAttribute("aria-label", `Call ${display}`);
+  });
+</script>

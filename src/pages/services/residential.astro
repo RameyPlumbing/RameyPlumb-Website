@@ -1,0 +1,348 @@
+---
+import Base from "../../layouts/Base.astro";
+import { Image } from "astro:assets";
+import Contact from "../../components/Contact.astro";
+import CallButton from "../../components/CallButton.astro";
+
+import bathroomBlue from "../../assets/gallery/residential/blue-vanity-bathroom.jpg";
+import bathroomGray from "../../assets/gallery/residential/gray-vanity-bathroom.jpg";
+import bathroomWhite from "../../assets/gallery/residential/white-vanity-bathroom.jpg";
+import shopRoughIn from "../../assets/gallery/residential/shop-rough-in.jpg";
+import newConstruction from "../../assets/gallery/residential/new-construction-foundation.jpg";
+import underSink from "../../assets/gallery/residential/under-sink-repair.jpg";
+
+const galleryImgs = [
+  { src: bathroomBlue, alt: "Finished blue vanity bathroom in a Northeast Mississippi home." },
+  { src: bathroomGray, alt: "Finished bathroom with tub and gray vanity." },
+  { src: bathroomWhite, alt: "Finished white double-vanity bathroom." },
+  { src: shopRoughIn, alt: "Black-pipe plumbing rough-in inside a shop building." },
+  { src: newConstruction, alt: "New construction foundation with plumbing stub-ups ready for slab pour." },
+  { src: underSink, alt: "Existing-home plumbing repair under a kitchen sink." },
+];
+---
+
+<Base
+  title="Residential Plumbing — Ramey's Plumbing Services · Fulton, MS"
+  description="Residential plumbing for new construction and existing homes in Fulton, Tupelo, Oxford, Starkville, and surrounding Northeast Mississippi communities. Fully insured. Free estimates."
+>
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-content">
+        <div class="page-hero-eyebrow">— Service: Residential —</div>
+        <h1>Residential Plumbing,<br /><span class="accent">done right.</span></h1>
+        <p class="page-hero-sub">
+          New construction and existing-home plumbing for homeowners and builders
+          across Fulton, Tupelo, Oxford, Starkville, and the surrounding
+          Northeast Mississippi communities.
+        </p>
+        <div class="page-hero-ctas">
+          <a href="#contact" class="btn-primary">Get a Free Estimate</a>
+          <CallButton variant="secondary" />
+        </div>
+      </div>
+      <div class="page-hero-visual">
+        <Image
+          src={bathroomGray}
+          alt=""
+          widths={[400, 600, 800]}
+          sizes="(max-width: 880px) 100vw, 45vw"
+          format="webp"
+          quality={84}
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section class="page-section">
+    <div class="page-section-inner page-section-inner-narrow">
+      <div class="section-label">— What's Included —</div>
+      <h2>Whole-house plumbing, from rough-in to finish.</h2>
+      <div class="page-body">
+        <p>
+          Our residential plumbing service covers everything a home needs &mdash;
+          whether you're building new, renovating, or fixing what already exists.
+          We work with homeowners, contractors, and builders across Northeast
+          Mississippi, and we treat every job like it's our own home.
+        </p>
+        <div class="feature-grid">
+          <div class="feature">
+            <h3>New Construction</h3>
+            <p>Full residential rough-ins, slab plumbing, water and waste lines, fixture sets, and final hookups for new builds.</p>
+          </div>
+          <div class="feature">
+            <h3>Existing Homes</h3>
+            <p>Repairs, replacements, remodels, water heater work, leaks, and any of the surprises that come with older plumbing.</p>
+          </div>
+          <div class="feature">
+            <h3>Fixtures & Finish Work</h3>
+            <p>Toilets, sinks, tubs, showers, faucets &mdash; full bathroom and kitchen installations from rough-in to final fixture.</p>
+          </div>
+          <div class="feature">
+            <h3>Water Lines & Drains</h3>
+            <p>New supply runs, drain repairs, line replacements, and connections for additions or accessory buildings.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Excavation -->
+  <section id="excavation" class="page-section page-section-alt">
+    <div class="page-section-inner">
+      <div class="excavation-grid">
+        <div>
+          <div class="section-label">— Also Offered —</div>
+          <h2>Excavation work that supports every job.</h2>
+          <p>
+            Plumbing rarely stops at the wall. We handle the excavation that
+            makes residential and septic jobs possible &mdash; trenching for
+            water and sewer lines, foundation prep, site work, and the dirt
+            work that gets your project ready.
+          </p>
+          <p>
+            If your job needs excavation in addition to plumbing or septic, we
+            handle both, so you don't have to coordinate multiple contractors.
+          </p>
+        </div>
+        <div class="excavation-visual">
+          <Image
+            src={newConstruction}
+            alt="Excavation and foundation plumbing on a Northeast Mississippi new-construction project."
+            widths={[400, 600, 800]}
+            sizes="(max-width: 880px) 100vw, 50vw"
+            format="webp"
+            quality={84}
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="page-section">
+    <div class="page-section-inner">
+      <div class="section-label">— Recent Work —</div>
+      <h2>A few residential jobs.</h2>
+      <div class="page-gallery">
+        {galleryImgs.map(img => (
+          <div class="page-gallery-tile">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              widths={[300, 500, 700]}
+              sizes="(max-width: 880px) 50vw, 33vw"
+              format="webp"
+              quality={82}
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="/gallery" class="btn-secondary-dark">View Full Gallery →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="page-section page-section-alt">
+    <div class="page-section-inner page-section-inner-narrow">
+      <div class="section-label">— How Pricing Works —</div>
+      <h2>Honest, straightforward, and tailored to the job.</h2>
+      <div class="page-body">
+        <p>
+          Every job is priced based on scope. Service calls include a flat
+          service fee plus an hourly rate that scales with the size of the job.
+          New construction and large projects are quoted upfront after a free,
+          no-obligation estimate.
+        </p>
+        <p>
+          Contact us with the details of your project and we'll get back to
+          you with a clear, honest quote.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</Base>
+
+<style>
+  /* Shared page-level styles (also used by /services/septic) */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-navy-deepest) 0%, var(--color-navy) 50%, var(--color-navy-light) 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: "";
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(139, 109, 214, 0.18) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .page-hero-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding: 80px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .page-hero-content { z-index: 2; }
+  .page-hero-eyebrow {
+    color: var(--color-purple-soft);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .page-hero h1 {
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px;
+  }
+  .page-hero h1 .accent { color: var(--color-purple-soft); }
+  .page-hero-sub {
+    font-size: 17px;
+    color: var(--color-slate-300);
+    max-width: 520px;
+    line-height: 1.65;
+    margin: 0 0 32px;
+  }
+  .page-hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .page-hero-visual {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    z-index: 2;
+  }
+  .page-hero-visual :global(img) {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+  }
+
+  .page-section {
+    padding: 90px 48px;
+    background: var(--color-bg);
+  }
+  .page-section-alt {
+    background: var(--color-cream);
+  }
+  .page-section-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .page-section-inner-narrow {
+    max-width: 880px;
+  }
+  .page-section h2 {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--color-navy-deepest);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 12px 0 24px;
+  }
+  .page-section .section-label { display: block; }
+  .page-body p {
+    color: var(--color-slate-700);
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 18px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .feature {
+    background: white;
+    padding: 28px;
+    border-radius: 10px;
+    border: 1px solid var(--color-slate-100);
+  }
+  .feature h3 {
+    color: var(--color-navy-deepest);
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 8px;
+  }
+  .feature p {
+    color: var(--color-slate-700);
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .excavation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .excavation-visual {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(10, 22, 40, 0.15);
+  }
+  .excavation-visual :global(img) {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+  }
+
+  .page-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .page-gallery-tile {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .page-gallery-tile :global(img) {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s;
+  }
+  .page-gallery-tile:hover :global(img) { transform: scale(1.04); }
+
+  @media (max-width: 1100px) {
+    .page-hero h1 { font-size: 46px; }
+  }
+  @media (max-width: 880px) {
+    .page-hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 56px 24px; }
+    .page-hero h1 { font-size: 36px; }
+    .page-hero-visual :global(img) { height: 280px; }
+    .page-section { padding: 56px 24px; }
+    .page-section h2 { font-size: 28px; }
+    .feature-grid { grid-template-columns: 1fr; gap: 14px; }
+    .excavation-grid { grid-template-columns: 1fr; gap: 32px; }
+    .excavation-visual :global(img) { height: 240px; }
+    .page-gallery { grid-template-columns: 1fr 1fr; }
+    .page-hero-ctas { flex-direction: column; align-items: stretch; }
+    .page-hero-ctas :global(a) { width: 100%; }
+  }
+</style>

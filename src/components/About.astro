@@ -1,0 +1,153 @@
+---
+import { Image } from "astro:assets";
+import aboutImg from "../assets/gallery/residential/IMG_3608.jpg";
+---
+
+<section id="about" class="about">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-img">
+        <Image
+          src={aboutImg}
+          alt="A Ramey's Plumbing job site in Northeast Mississippi."
+          widths={[400, 600, 800]}
+          sizes="(max-width: 880px) 100vw, 45vw"
+          format="webp"
+          quality={82}
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <div class="about-text">
+      <div class="section-label">— About Us —</div>
+      <h2>Locally owned. <span class="accent">Locally trusted.</span></h2>
+
+      <p>
+        Ramey's Plumbing Services is a locally owned and operated plumbing
+        business based in Fulton, Mississippi. We serve homeowners, builders,
+        and property owners throughout Northeast Mississippi &mdash; from
+        Fulton and Tupelo to Oxford, Starkville, Columbus, and the communities
+        in between.
+      </p>
+
+      <p>
+        Our work covers three core services: residential plumbing for new
+        construction and existing homes, full septic system installation, and
+        the excavation work that supports it all. Every job, large or small,
+        is approached with the same standard &mdash; we treat every project
+        like it's our own home.
+      </p>
+
+      <p>
+        We're fully insured, we answer the phone, and we'll be honest with you
+        about what your job needs. If you'd like an estimate, give us a call
+        or send a message through the form below.
+      </p>
+
+      <ul class="about-points">
+        <li>
+          <span class="dot"></span>
+          <div>
+            <strong>Fully insured.</strong> Every job is protected.
+          </div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div>
+            <strong>Local roots.</strong> Based in Fulton, MS &mdash; serving Northeast Mississippi.
+          </div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div>
+            <strong>Weekend service available.</strong> When the job needs it, we'll be there.
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 100px 48px;
+    background: var(--color-bg);
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .about-visual { position: relative; }
+  .about-img {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(10, 22, 40, 0.18);
+  }
+  .about-img :global(img) {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-text .section-label {
+    margin-bottom: 16px;
+    display: block;
+  }
+  .about-text h2 {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--color-navy-deepest);
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin: 0 0 28px;
+  }
+  .about-text h2 .accent { color: var(--color-purple-deep); }
+  .about-text p {
+    color: var(--color-slate-700);
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 18px;
+  }
+  .about-points {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .about-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    color: var(--color-slate-700);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .about-points li strong {
+    color: var(--color-navy-deepest);
+    font-weight: 700;
+  }
+  .about-points .dot {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-purple);
+    margin-top: 8px;
+    box-shadow: 0 0 0 4px rgba(139, 109, 214, 0.15);
+  }
+
+  @media (max-width: 880px) {
+    .about { padding: 64px 24px; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-text h2 { font-size: 32px; }
+    .about-img :global(img) { height: 320px; }
+  }
+</style>

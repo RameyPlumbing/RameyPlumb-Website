@@ -1,0 +1,243 @@
+---
+const year = new Date().getFullYear();
+
+const serviceAreas = [
+  "Fulton", "Tupelo", "Amory", "Nettleton", "Smithville",
+  "Mantachie", "Belden", "Saltillo", "Pontotoc", "Booneville",
+  "Oxford", "Columbus", "Starkville", "West Point"
+];
+
+// Email split into two halves so it doesn't appear literally in HTML.
+// JS reassembles on the client.
+const emailParts = ["contact", "rameyplumb.com"];
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="/logo.png" alt="" width="56" height="56" />
+          <div class="footer-logo-text">
+            Ramey's Plumbing<span>Services LLC</span>
+          </div>
+        </div>
+        <p class="footer-tagline">
+          Quality work, built to last.<br />
+          Locally owned. Serving Northeast Mississippi.
+        </p>
+        <div class="footer-socials" aria-label="Social media">
+          <a href="https://facebook.com" rel="me noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact column -->
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <ul>
+          <li>
+            <a href="#" class="footer-phone phone-link" data-p1="NjYy" data-p2="NzkwMzM4Ng==" data-prefix="" rel="nofollow">
+              Call us
+            </a>
+          </li>
+          <li>
+            <a href="#" class="footer-email" data-u={emailParts[0]} data-d={emailParts[1]}>
+              Email us
+            </a>
+          </li>
+          <li>
+            <a href="/#contact">Contact form</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Hours column -->
+      <div class="footer-col">
+        <h3>Hours</h3>
+        <ul>
+          <li>Mon&ndash;Fri</li>
+          <li>Weekend service available</li>
+        </ul>
+      </div>
+
+      <!-- Service areas column -->
+      <div class="footer-col footer-areas">
+        <h3>Service Areas</h3>
+        <p>{serviceAreas.join(" · ")}</p>
+        <p class="footer-areas-note">and surrounding communities in Northeast Mississippi.</p>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <p>&copy; {year} Ramey's Plumbing Services LLC. All rights reserved.</p>
+      <p class="footer-fineprint">Fully insured. Free estimates.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reassemble email at runtime
+  document.querySelectorAll<HTMLAnchorElement>(".footer-email").forEach(el => {
+    const user = el.dataset.u || "";
+    const domain = el.dataset.d || "";
+    if (!user || !domain) return;
+    const addr = `${user}@${domain}`;
+    el.href = `mailto:${addr}`;
+    el.textContent = addr;
+    el.setAttribute("aria-label", `Email ${addr}`);
+  });
+</script>
+
+<style>
+  .footer {
+    background: var(--color-navy-deepest);
+    color: var(--color-slate-300);
+    padding: 80px 48px 0;
+  }
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.6fr;
+    gap: 48px;
+    padding-bottom: 64px;
+  }
+  .footer-brand {
+    max-width: 320px;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .footer-logo-text {
+    font-weight: 800;
+    color: white;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .footer-logo-text span {
+    display: block;
+    color: var(--color-purple-soft);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    margin-top: 3px;
+  }
+  .footer-tagline {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-slate-300);
+    margin: 0 0 24px;
+  }
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+  }
+  .footer-socials a {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    color: var(--color-slate-300);
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+  }
+  .footer-socials a:hover {
+    background: var(--color-purple);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .footer-col h3 {
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-col a,
+  .footer-col li {
+    color: var(--color-slate-300);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: color 0.15s;
+  }
+  .footer-col a:hover { color: var(--color-purple-soft); }
+  .footer-call {
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+    color: var(--color-slate-300) !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    justify-content: flex-start;
+  }
+  .footer-call:hover {
+    background: none !important;
+    color: var(--color-purple-soft) !important;
+  }
+
+  .footer-areas p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+    color: var(--color-slate-300);
+  }
+  .footer-areas-note {
+    margin-top: 10px !important;
+    color: var(--color-slate-500) !important;
+    font-style: italic;
+  }
+
+  .footer-bar {
+    padding: 28px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--color-slate-500);
+  }
+  .footer-bar p { margin: 0; }
+  .footer-fineprint { color: var(--color-slate-500); }
+
+  @media (max-width: 880px) {
+    .footer { padding: 60px 24px 0; }
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 36px 24px;
+      padding-bottom: 48px;
+    }
+    .footer-brand { grid-column: 1 / -1; max-width: none; }
+    .footer-areas { grid-column: 1 / -1; }
+    .footer-bar {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      align-items: center;
+    }
+  }
+</style>

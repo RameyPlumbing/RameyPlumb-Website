@@ -1,0 +1,148 @@
+---
+import { Image } from "astro:assets";
+import residentialImg from "../assets/gallery/residential/blue-vanity-bathroom.jpg";
+import septicImg from "../assets/gallery/septic/plumbing-trenches.jpg";
+import excavationImg from "../assets/gallery/septic/rebar-slab.jpg";
+
+const services = [
+  {
+    title: "Residential Plumbing",
+    href: "/services/residential",
+    img: residentialImg,
+    blurb: "New construction and existing-home plumbing for homeowners across Northeast Mississippi.",
+  },
+  {
+    title: "Septic Systems",
+    href: "/services/septic",
+    img: septicImg,
+    blurb: "Septic system installation and service for rural and suburban properties.",
+  },
+  {
+    title: "Excavation",
+    href: "/services/residential#excavation",
+    img: excavationImg,
+    blurb: "Site prep and excavation work supporting every plumbing and septic job we do.",
+  },
+];
+---
+
+<section id="services" class="services">
+  <div class="services-label">— What We Do —</div>
+  <h2 class="services-title">
+    Our <span class="accent">Services</span>
+  </h2>
+
+  <div class="service-grid">
+    {services.map(svc => (
+      <a href={svc.href} class="service-card">
+        <div class="service-card-img">
+          <Image
+            src={svc.img}
+            alt=""
+            widths={[300, 500, 700]}
+            sizes="(max-width: 880px) 100vw, 33vw"
+            format="webp"
+            quality={82}
+            loading="lazy"
+          />
+        </div>
+        <div class="service-card-body">
+          <h3>{svc.title}</h3>
+          <p>{svc.blurb}</p>
+          <div class="service-card-link">Learn more →</div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 100px 48px;
+    background: var(--color-bg);
+  }
+  .services-label {
+    text-align: center;
+    color: var(--color-purple-deep);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .services-title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--color-navy-deepest);
+    letter-spacing: -0.025em;
+    margin: 0 0 56px;
+    line-height: 1.05;
+  }
+  .services-title .accent { color: var(--color-purple-deep); }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .service-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--color-slate-100);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: block;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(10, 22, 40, 0.1);
+  }
+  .service-card-img {
+    height: 220px;
+    overflow: hidden;
+  }
+  .service-card-img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .service-card:hover .service-card-img :global(img) {
+    transform: scale(1.04);
+  }
+  .service-card-body { padding: 28px; }
+  .service-card h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--color-navy-deepest);
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .service-card p {
+    color: var(--color-slate-500);
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .service-card-link {
+    margin-top: 18px;
+    color: var(--color-purple);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 880px) {
+    .services { padding: 64px 24px; }
+    .services-title { font-size: 34px; margin-bottom: 36px; }
+    .service-grid { grid-template-columns: 1fr; gap: 20px; }
+    .service-card-img { height: 200px; }
+  }
+</style>

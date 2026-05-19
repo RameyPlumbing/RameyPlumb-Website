@@ -1,0 +1,52 @@
+---
+---
+
+<section class="quality-band" aria-labelledby="quality-heading">
+  <div class="quality-band-label">Our Standard</div>
+  <h2 id="quality-heading">
+    Quality work, <span class="accent">built to last.</span>
+  </h2>
+</section>
+
+<style>
+  .quality-band {
+    background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-deepest) 100%);
+    padding: 80px 48px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .quality-band::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(139, 109, 214, 0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .quality-band-label {
+    color: var(--color-purple-soft);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .quality-band h2 {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin: 0;
+    position: relative;
+  }
+  .quality-band h2 .accent { color: var(--color-purple-soft); }
+
+  @media (max-width: 880px) {
+    .quality-band { padding: 60px 24px; }
+    .quality-band h2 { font-size: 36px; }
+  }
+</style>

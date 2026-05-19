@@ -1,0 +1,382 @@
+---
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "";
+---
+
+<section id="contact" class="contact">
+  <div class="contact-inner">
+    <div class="contact-text">
+      <div class="section-label" style="color: var(--color-purple-soft)">— Get in Touch —</div>
+      <h2>Free estimates. <span class="accent">No pressure.</span></h2>
+      <p>
+        Tell us about your project &mdash; new construction, septic install,
+        a leak, or anything in between. We'll get back to you with a clear,
+        honest quote.
+      </p>
+
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <div class="contact-info-label">Call us</div>
+          <a href="#" id="contact-phone" class="contact-info-value" data-p1="NjYy" data-p2="NzkwMzM4Ng==" rel="nofollow">Phone</a>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-label">Email us</div>
+          <a href="#" id="contact-email" class="contact-info-value" data-u="contact" data-d="rameyplumb.com">Email</a>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-label">Location</div>
+          <div class="contact-info-value">Fulton, MS &middot; Northeast MS</div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-label">Hours</div>
+          <div class="contact-info-value">Mon&ndash;Fri &middot; Weekends on request</div>
+        </div>
+      </div>
+    </div>
+
+    <form id="contact-form" class="contact-form" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="cf-name">Name <span aria-hidden="true">*</span></label>
+          <input type="text" id="cf-name" name="name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="cf-phone">Phone <span aria-hidden="true">*</span></label>
+          <input type="tel" id="cf-phone" name="phone" required autocomplete="tel" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cf-email">Email <span aria-hidden="true">*</span></label>
+        <input type="email" id="cf-email" name="email" required autocomplete="email" />
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="cf-service">Service Needed <span aria-hidden="true">*</span></label>
+          <select id="cf-service" name="service" required>
+            <option value="">Select a service…</option>
+            <option value="Residential Plumbing">Residential Plumbing</option>
+            <option value="Septic Systems">Septic Systems</option>
+            <option value="Excavation">Excavation</option>
+            <option value="Not sure">Not sure</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cf-location">Service Address or City <span class="optional">(optional)</span></label>
+          <input type="text" id="cf-location" name="location" autocomplete="address-level2" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cf-message">How can we help? <span aria-hidden="true">*</span></label>
+        <textarea id="cf-message" name="message" rows="5" required></textarea>
+      </div>
+
+      <!-- Honeypot field - bots fill this, humans don't see it -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="cf-website">Website</label>
+        <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <!-- Cloudflare Turnstile widget -->
+      {turnstileSiteKey && (
+        <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"></div>
+      )}
+
+      <button type="submit" class="btn-primary contact-submit" id="cf-submit">
+        Send Message
+      </button>
+
+      <div class="form-status" id="cf-status" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+{turnstileSiteKey && (
+  <script
+    is:inline
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    async
+    defer
+  ></script>
+)}
+
+<script>
+  // Hydrate contact info links
+  const phoneEl = document.getElementById("contact-phone") as HTMLAnchorElement | null;
+  if (phoneEl) {
+    const p1 = atob(phoneEl.dataset.p1 || "");
+    const p2 = atob(phoneEl.dataset.p2 || "");
+    const display = `(${p1}) ${p2.slice(0, 3)}-${p2.slice(3)}`;
+    phoneEl.href = `tel:${p1}${p2}`;
+    phoneEl.textContent = display;
+    phoneEl.setAttribute("aria-label", `Call ${display}`);
+  }
+  const emailEl = document.getElementById("contact-email") as HTMLAnchorElement | null;
+  if (emailEl) {
+    const user = emailEl.dataset.u || "";
+    const domain = emailEl.dataset.d || "";
+    const addr = `${user}@${domain}`;
+    emailEl.href = `mailto:${addr}`;
+    emailEl.textContent = addr;
+    emailEl.setAttribute("aria-label", `Email ${addr}`);
+  }
+
+  // Form submission
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("cf-submit") as HTMLButtonElement | null;
+  const statusEl = document.getElementById("cf-status") as HTMLDivElement | null;
+
+  function setStatus(msg: string, type: "ok" | "error" | "info" | "") {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.dataset.type = type;
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form || !submitBtn) return;
+
+    // Basic client-side validation
+    const requiredFields = ["name", "phone", "email", "service", "message"];
+    for (const fieldName of requiredFields) {
+      const field = form.elements.namedItem(fieldName) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null;
+      if (!field || !field.value.trim()) {
+        setStatus("Please fill out all required fields.", "error");
+        field?.focus();
+        return;
+      }
+    }
+
+    // Honeypot — if filled, silently "succeed"
+    const honeypot = (form.elements.namedItem("website") as HTMLInputElement | null)?.value;
+    if (honeypot) {
+      setStatus("Thanks — we'll be in touch soon.", "ok");
+      form.style.display = "none";
+      return;
+    }
+
+    // Turnstile token (if Turnstile is configured)
+    const turnstileField = form.querySelector<HTMLInputElement>("[name=cf-turnstile-response]");
+    const turnstileToken = turnstileField?.value || "";
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    setStatus("", "");
+
+    const data = new FormData(form);
+    const payload: Record<string, string> = {};
+    data.forEach((v, k) => { payload[k] = v.toString(); });
+    payload.turnstileToken = turnstileToken;
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json().catch(() => ({}));
+      if (res.ok && result.ok) {
+        form.style.display = "none";
+        setStatus("Thanks — we'll be in touch within 24 hours.", "ok");
+      } else {
+        const msg = result?.error || "Something went wrong. Please try calling us instead.";
+        setStatus(msg, "error");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Message";
+        // Reset Turnstile to allow retry
+        // @ts-ignore
+        if (typeof window.turnstile !== "undefined") window.turnstile.reset();
+      }
+    } catch (err) {
+      setStatus("Network error. Please try calling us instead.", "error");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Message";
+    }
+  });
+</script>
+
+<style>
+  .contact {
+    background: linear-gradient(135deg, var(--color-navy-deepest) 0%, var(--color-navy) 60%, var(--color-navy-light) 100%);
+    color: white;
+    padding: 100px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact::before {
+    content: "";
+    position: absolute;
+    top: -30%; left: -10%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(139, 109, 214, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 64px;
+    align-items: start;
+    max-width: 1240px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .contact-text h2 {
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 16px 0 24px;
+  }
+  .contact-text h2 .accent { color: var(--color-purple-soft); }
+  .contact-text > p {
+    font-size: 16px;
+    color: var(--color-slate-300);
+    line-height: 1.65;
+    margin: 0 0 36px;
+    max-width: 460px;
+  }
+
+  .contact-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .contact-info-item { }
+  .contact-info-label {
+    font-size: 10px;
+    color: var(--color-purple-soft);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .contact-info-value {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.4;
+    display: block;
+    word-break: break-word;
+  }
+  a.contact-info-value:hover { color: var(--color-purple-soft); }
+
+  /* Form */
+  .contact-form {
+    background: white;
+    color: var(--color-text);
+    padding: 36px;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .field {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .field label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-navy-deepest);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .field label .optional {
+    color: var(--color-slate-500);
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .field label span[aria-hidden] {
+    color: var(--color-purple);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-slate-100);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--color-text);
+    background: white;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--color-purple);
+    box-shadow: 0 0 0 3px rgba(139, 109, 214, 0.15);
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* Honeypot - hidden from humans but accessible to bots */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  .cf-turnstile {
+    margin: 4px 0 16px;
+  }
+
+  .contact-submit {
+    width: 100%;
+    padding: 16px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .contact-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-status {
+    margin-top: 16px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .form-status[data-type="ok"] {
+    color: #15803d;
+    padding: 16px;
+    background: #f0fdf4;
+    border-radius: 8px;
+    border: 1px solid #bbf7d0;
+  }
+  .form-status[data-type="error"] {
+    color: #b91c1c;
+    padding: 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+  }
+
+  @media (max-width: 880px) {
+    .contact { padding: 64px 24px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .contact-text h2 { font-size: 32px; }
+    .contact-info { grid-template-columns: 1fr; gap: 16px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .contact-form { padding: 24px; }
+  }
+</style>

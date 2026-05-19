@@ -1,0 +1,97 @@
+---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Use a specific OG image for this page (defaults to logo). */
+  ogImage?: string;
+}
+
+const {
+  title = "Ramey's Plumbing Services — Fulton, MS",
+  description = "Residential plumbing, septic systems, and excavation services for Fulton and the surrounding communities of Northeast Mississippi. Fully insured, locally owned, weekend service available.",
+  ogImage = "/logo.png",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:site_name" content="Ramey's Plumbing Services" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Local-business schema (JSON-LD) -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Plumber",
+      "name": "Ramey's Plumbing Services LLC",
+      "image": new URL("/logo.png", Astro.site).href,
+      "url": Astro.site?.href,
+      "telephone": "+1-662-790-3386",
+      "email": "contact@rameyplumb.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Fulton",
+        "addressRegion": "MS",
+        "postalCode": "38843",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        "Fulton, MS", "Tupelo, MS", "Amory, MS", "Nettleton, MS",
+        "Smithville, MS", "Mantachie, MS", "Belden, MS", "Saltillo, MS",
+        "Pontotoc, MS", "Booneville, MS", "Oxford, MS", "Columbus, MS",
+        "Starkville, MS", "West Point, MS"
+      ],
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "description": "Weekend service available on request."
+      }],
+      "priceRange": "$$",
+      "serviceType": ["Residential Plumbing", "Septic Systems", "Excavation"]
+    })} />
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

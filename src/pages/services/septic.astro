@@ -1,0 +1,345 @@
+---
+import Base from "../../layouts/Base.astro";
+import { Image } from "astro:assets";
+import Contact from "../../components/Contact.astro";
+import CallButton from "../../components/CallButton.astro";
+
+import slabTruck from "../../assets/gallery/septic/slab-rough-in-truck.jpg";
+import slabHouse from "../../assets/gallery/septic/slab-rough-in-house.jpg";
+import slabTrees from "../../assets/gallery/septic/slab-pre-pour-trees.jpg";
+import plumbingTrenches from "../../assets/gallery/septic/plumbing-trenches.jpg";
+import rebarSlab from "../../assets/gallery/septic/rebar-slab.jpg";
+
+const galleryImgs = [
+  { src: slabTruck, alt: "Septic-ready slab rough-in for a new home in rural Northeast Mississippi." },
+  { src: slabHouse, alt: "Slab plumbing rough-in with existing residence in the background." },
+  { src: slabTrees, alt: "Septic system slab pre-pour at a wooded Northeast Mississippi property." },
+  { src: plumbingTrenches, alt: "Trenched plumbing lines staged for a septic install." },
+  { src: rebarSlab, alt: "Rebar and stub-up plumbing for a septic-served slab." },
+];
+---
+
+<Base
+  title="Septic Systems — Ramey's Plumbing Services · Fulton, MS"
+  description="Septic system installation and service for rural and suburban properties in Fulton, Tupelo, Oxford, Starkville, and surrounding Northeast Mississippi communities. Fully insured. Free estimates."
+>
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-content">
+        <div class="page-hero-eyebrow">— Service: Septic —</div>
+        <h1>Septic Systems,<br /><span class="accent">installed right.</span></h1>
+        <p class="page-hero-sub">
+          Full septic system installation and service for new construction and
+          existing properties across Fulton, Tupelo, Oxford, Starkville, and
+          the surrounding Northeast Mississippi communities.
+        </p>
+        <div class="page-hero-ctas">
+          <a href="#contact" class="btn-primary">Get a Free Estimate</a>
+          <CallButton variant="secondary" />
+        </div>
+      </div>
+      <div class="page-hero-visual">
+        <Image
+          src={slabTruck}
+          alt=""
+          widths={[400, 600, 800]}
+          sizes="(max-width: 880px) 100vw, 45vw"
+          format="webp"
+          quality={84}
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section class="page-section">
+    <div class="page-section-inner page-section-inner-narrow">
+      <div class="section-label">— What's Included —</div>
+      <h2>Full septic systems for new builds and beyond.</h2>
+      <div class="page-body">
+        <p>
+          We install complete septic systems for homes and properties across
+          Northeast Mississippi &mdash; from rural new construction to existing
+          properties needing a system update or replacement.
+        </p>
+        <div class="feature-grid">
+          <div class="feature">
+            <h3>New System Installation</h3>
+            <p>Complete septic system installation from tank to drain field, sized for your property and household needs.</p>
+          </div>
+          <div class="feature">
+            <h3>Site Evaluation</h3>
+            <p>We evaluate the site, soil, and layout to design a system that fits the property and meets local requirements.</p>
+          </div>
+          <div class="feature">
+            <h3>Tank & Field Setup</h3>
+            <p>Tank placement, drain field installation, line trenching, and connection to the home's waste plumbing.</p>
+          </div>
+          <div class="feature">
+            <h3>Excavation Included</h3>
+            <p>Septic work means digging &mdash; and we handle all the excavation in-house, so the entire job stays with one team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Built to last -->
+  <section class="page-section page-section-alt">
+    <div class="page-section-inner">
+      <div class="excavation-grid">
+        <div>
+          <div class="section-label">— Our Standard —</div>
+          <h2>Septic work, built to last.</h2>
+          <p>
+            Septic systems are buried, so the only thing that matters is
+            whether the install was done right the first time. We take the
+            time to do every step properly &mdash; layout, slope, connections,
+            and backfill &mdash; because the cost of a callback is far higher
+            than the cost of doing it right.
+          </p>
+          <p>
+            We're locally based in Fulton, so we're a phone call away if
+            anything ever needs attention down the road.
+          </p>
+        </div>
+        <div class="excavation-visual">
+          <Image
+            src={slabHouse}
+            alt="A septic-system slab plumbing install in Northeast Mississippi."
+            widths={[400, 600, 800]}
+            sizes="(max-width: 880px) 100vw, 50vw"
+            format="webp"
+            quality={84}
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="page-section">
+    <div class="page-section-inner">
+      <div class="section-label">— Recent Work —</div>
+      <h2>A few septic jobs.</h2>
+      <div class="page-gallery">
+        {galleryImgs.map(img => (
+          <div class="page-gallery-tile">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              widths={[300, 500, 700]}
+              sizes="(max-width: 880px) 50vw, 33vw"
+              format="webp"
+              quality={82}
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="/gallery" class="btn-secondary-dark">View Full Gallery →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="page-section page-section-alt">
+    <div class="page-section-inner page-section-inner-narrow">
+      <div class="section-label">— How Pricing Works —</div>
+      <h2>Honest, straightforward, and tailored to the job.</h2>
+      <div class="page-body">
+        <p>
+          Septic installs vary significantly based on site conditions, system
+          size, and property layout. Every job is quoted upfront after a free,
+          no-obligation estimate &mdash; no surprises, no padded bills.
+        </p>
+        <p>
+          Contact us with the details of your project and we'll get back to
+          you with a clear, honest quote.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</Base>
+
+<style>
+  /* Same shared styles as residential.astro */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-navy-deepest) 0%, var(--color-navy) 50%, var(--color-navy-light) 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: "";
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(139, 109, 214, 0.18) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .page-hero-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding: 80px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .page-hero-content { z-index: 2; }
+  .page-hero-eyebrow {
+    color: var(--color-purple-soft);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .page-hero h1 {
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px;
+  }
+  .page-hero h1 .accent { color: var(--color-purple-soft); }
+  .page-hero-sub {
+    font-size: 17px;
+    color: var(--color-slate-300);
+    max-width: 520px;
+    line-height: 1.65;
+    margin: 0 0 32px;
+  }
+  .page-hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .page-hero-visual {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    z-index: 2;
+  }
+  .page-hero-visual :global(img) {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+  }
+
+  .page-section {
+    padding: 90px 48px;
+    background: var(--color-bg);
+  }
+  .page-section-alt {
+    background: var(--color-cream);
+  }
+  .page-section-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .page-section-inner-narrow {
+    max-width: 880px;
+  }
+  .page-section h2 {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--color-navy-deepest);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 12px 0 24px;
+  }
+  .page-section .section-label { display: block; }
+  .page-body p {
+    color: var(--color-slate-700);
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 18px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .feature {
+    background: white;
+    padding: 28px;
+    border-radius: 10px;
+    border: 1px solid var(--color-slate-100);
+  }
+  .feature h3 {
+    color: var(--color-navy-deepest);
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 8px;
+  }
+  .feature p {
+    color: var(--color-slate-700);
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .excavation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .excavation-visual {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(10, 22, 40, 0.15);
+  }
+  .excavation-visual :global(img) {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+  }
+
+  .page-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .page-gallery-tile {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .page-gallery-tile :global(img) {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s;
+  }
+  .page-gallery-tile:hover :global(img) { transform: scale(1.04); }
+
+  @media (max-width: 1100px) {
+    .page-hero h1 { font-size: 46px; }
+  }
+  @media (max-width: 880px) {
+    .page-hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 56px 24px; }
+    .page-hero h1 { font-size: 36px; }
+    .page-hero-visual :global(img) { height: 280px; }
+    .page-section { padding: 56px 24px; }
+    .page-section h2 { font-size: 28px; }
+    .feature-grid { grid-template-columns: 1fr; gap: 14px; }
+    .excavation-grid { grid-template-columns: 1fr; gap: 32px; }
+    .excavation-visual :global(img) { height: 240px; }
+    .page-gallery { grid-template-columns: 1fr 1fr; }
+    .page-hero-ctas { flex-direction: column; align-items: stretch; }
+    .page-hero-ctas :global(a) { width: 100%; }
+  }
+</style>
