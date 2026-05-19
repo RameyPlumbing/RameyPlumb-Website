@@ -177,9 +177,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "";
       });
       const result = await res.json().catch(() => ({}));
       if (res.ok && result.ok) {
-        form.style.display = "none";
-        setStatus("Thanks — we'll be in touch within 24 hours.", "ok");
-      } else {
+  
+      form.innerHTML = `
+        <div class="form-success">
+          <div class="form-success-icon">✓</div>
+          <h3>Message sent!</h3>
+          <p>Thanks — we'll be in touch within 24 hours.</p>
+          <p class="form-success-fineprint">Need to reach us sooner? Call (662) 790-3386.</p>
+        </div>
+      `;
+    } else {
         const msg = result?.error || "Something went wrong. Please try calling us instead.";
         setStatus(msg, "error");
         submitBtn.disabled = false;
@@ -378,5 +385,40 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "";
     .contact-info { grid-template-columns: 1fr; gap: 16px; }
     .form-row { grid-template-columns: 1fr; gap: 0; }
     .contact-form { padding: 24px; }
+  }
+  .form-success {
+  text-align: center;
+  padding: 40px 24px;
+  }
+  .form-success-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #f0fdf4;
+    border: 2px solid #15803d;
+    color: #15803d;
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .form-success h3 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--color-navy-deepest);
+    margin: 0 0 8px;
+  }
+  .form-success p {
+    color: var(--color-slate-700);
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 8px;
+  }
+  .form-success-fineprint {
+    margin-top: 16px !important;
+    color: var(--color-slate-500) !important;
+    font-size: 14px !important;
   }
 </style>
